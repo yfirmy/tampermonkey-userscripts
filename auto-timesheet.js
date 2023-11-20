@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         Auto Timesheet
 // @namespace    http://tampermonkey.net/
-// @version      1.1
+// @version      1.2
 // @description  Automatic Timesheet Filler
 // @author       Yohan FIRMY (yfirmy)
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
+// @require      https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js
 // @grant        none
 // @homepage     https://github.com/yfirmy/tampermonkey-userscripts
 // @downloadURL  https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet.js
@@ -15,11 +16,11 @@
 function() {
     'use strict';
     var presenceByDay;
+    var momentByDay;
 
     function fillField(doc, weekday, fieldType, fieldId, fieldValueIfPresent, fieldValueIfAbsent) {
        let element = doc.querySelector(fieldType + "[id='" + fieldId + "']");
        if(element) {
-           console.log(presenceByDay);
           if(presenceByDay && presenceByDay.get(weekday)) {
              element.value = fieldValueIfPresent;
           } else {
@@ -41,6 +42,30 @@ function() {
             default:          result=undefined;
         }
         return result;
+    }
+    function isPublicHoliday(momentDate) {
+        let perpetualFrenchHolidays = ["01/01", "01/05", "08/05", "14/07", "15/08", "01/11", "11/11", "25/12"];
+        let otherFrenchHolidays = ["01/04/2024", "09/05/2024", "20/05/2024",
+                                   "21/04/2025", "29/05/2025", "09/06/2025",
+                                   "06/04/2026", "14/05/2026", "25/05/2026",
+                                   "29/03/2027", "06/05/2027", "17/05/2027",
+                                   "17/04/2028", "25/05/2028", "05/06/2028"]
+        return perpetualFrenchHolidays.includes(momentDate.format("DD/MM")) || otherFrenchHolidays.includes(momentDate.format("DD/MM/YYYY"));
+    }
+    function fillPublicHoliday(doc, weekday, workHours) {
+        let weekdayMoment = momentByDay.get(weekday);
+        let isPubHoliday = isPublicHoliday(weekdayMoment);
+        if(isPubHoliday) {
+           let day = weekDayAsInt(weekday)
+           let publicHolidayElement = doc.querySelector("input[id='POL_TIME"+day+"$30']");
+           let publicHolidayDescrElement = doc.querySelector("span[id='POL_DESCR$30']");
+            if(publicHolidayDescrElement && publicHolidayDescrElement.innerHTML=="Jour férié") {
+               publicHolidayElement.value = workHours;
+               publicHolidayElement.onchange();
+            } else {
+              console.log("Public holidays fields not found");
+            }
+        }
     }
     function checkPresenceOnDay(doc, weekday) {
         let result = true;
@@ -66,6 +91,15 @@ function() {
         result.set("Friday",    checkPresenceOnDay(doc, "Friday"));
         return result;
     }
+    function buildCalendar(endDate) {
+        let result = new Map();
+        result.set("Monday",    endDate.clone().subtract(5, 'days'));
+        result.set("Tuesday",   endDate.clone().subtract(4, 'days'));
+        result.set("Wednesday", endDate.clone().subtract(3, 'days'));
+        result.set("Thursday",  endDate.clone().subtract(2, 'days'));
+        result.set("Friday",    endDate.clone().subtract(1, 'days'));
+        return result;
+    }
     function checkTimesheet(changes, observer) {
 
        let iframeTimesheet = document.getElementById('main_target_win0');
@@ -75,6 +109,17 @@ function() {
           let innerDocument = iframeTimesheet.contentDocument ? iframeTimesheet.contentDocument : iframeTimesheet.contentWindow.document;
           if(innerDocument.querySelector("input[id='TIME1$0']")){
 
+              let dateElement = innerDocument.querySelector("span[id='EX_TIME_HDR_PERIOD_END_DT']");
+              if(dateElement) {
+                  let endDate = dateElement.innerHTML;
+                  momentByDay = buildCalendar(moment(endDate, "DD/MM/YYYY"));
+                  fillPublicHoliday(innerDocument, "Monday",    '7,70');
+                  fillPublicHoliday(innerDocument, "Tuesday",   '7,70');
+                  fillPublicHoliday(innerDocument, "Wednesday", '7,70');
+                  fillPublicHoliday(innerDocument, "Thursday",  '7,70');
+                  fillPublicHoliday(innerDocument, "Friday",    '7,70');
+              }
+
               presenceByDay = checkPresence(innerDocument);
 
               // Working hours per day (in hours)
@@ -83,7 +128,7 @@ function() {
               fillField(innerDocument, "Wednesday", "input", "TIME4$0", '7,70', '');
               fillField(innerDocument, "Thursday",  "input", "TIME5$0", '7,70', '');
               fillField(innerDocument, "Friday",    "input", "TIME6$0", '7,70', '');
-              fillField(innerDocument, "Comments",  "textarea", "", "EX_TIME_HDR_COMMENTS", "(Automatically filled timesheet - see github.com/yfirmy/tampermonkey-userscripts)");
+              fillField(innerDocument, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "(Timesheet préremplie automatiquement - plus d'info: github.com/yfirmy/tampermonkey-userscripts)");
           }
        }
        if(iframeAdditionalInfo) {
