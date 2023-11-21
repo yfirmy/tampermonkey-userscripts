@@ -18,8 +18,10 @@ function() {
 
     const WORK_HOURS = '7,70';
     const LUNCH_HOURS = '1,00';
+
     const REMOTE_WORKING = 'T';
     const CLIENT_SITE = 'C';
+    const CGI_SITE = 'O';
 
     var presenceByDay;
     var momentByDay;
