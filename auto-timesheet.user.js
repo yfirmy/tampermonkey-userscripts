@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         Auto Timesheet Filler
-// @namespace    ttps://github.com/yfirmy/tampermonkey-userscripts
+// @namespace    https://github.com/yfirmy/tampermonkey-userscripts
 // @version      1.3
 // @description  Automatic Timesheet Filler
 // @author       Yohan FIRMY (yfirmy)
@@ -171,11 +171,11 @@ function() {
               if(dateElement) {
                   let endDate = dateElement.innerHTML;
                   momentByDay = buildCalendar(moment(endDate, "DD/MM/YYYY"));
-                  fillPublicHoliday(innerDocument, "Monday",    '7,70');
-                  fillPublicHoliday(innerDocument, "Tuesday",   '7,70');
-                  fillPublicHoliday(innerDocument, "Wednesday", '7,70');
-                  fillPublicHoliday(innerDocument, "Thursday",  '7,70');
-                  fillPublicHoliday(innerDocument, "Friday",    '7,70');
+                  fillPublicHoliday(innerDocument, "Monday",    WORK_HOURS);
+                  fillPublicHoliday(innerDocument, "Tuesday",   WORK_HOURS);
+                  fillPublicHoliday(innerDocument, "Wednesday", WORK_HOURS);
+                  fillPublicHoliday(innerDocument, "Thursday",  WORK_HOURS);
+                  fillPublicHoliday(innerDocument, "Friday",    WORK_HOURS);
               }
 
               presenceByDay = checkPresence(innerDocument);
