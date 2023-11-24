@@ -6,7 +6,7 @@
  2. Pour ajouter le script :
     - cliquez sur [ce lien](https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js)
     - Un onglet Tampermonkey s'affiche
-    - cliquez sur "Installer le script"
+    - cliquez sur "**Installer**"
  3. Personnalisez le script (cliquez sur l'icône de l'extension Tampermonkey, and sélectionner "Auto Timesheet Filler" puis "Edition")
     -  Modifiez la valeur de `WORK_HOURS` si nécessaire
     -  Modifiez la valeur de `LUNCH_HOURS` si necessaire 
@@ -20,3 +20,9 @@ Une fois le script installé et adapté (voir ci-dessus):
  3. Celle-ci sera automatiquement pré-remplie par le script
  4. Cliquez sur le lien "Informations additionnelles" pour laisser le script remplir cette partie également, et cliquer sur OK
  5. Sauvegardez (ou Soumettez) votre Timesheet
+
+## Comment désintaller le script
+ 1. Allez dans le "tableau de bord" de l'extension Tampermonkey
+ 2. Choisissez "Auto Timesheet Filler"
+ 3. Parmi les actions, choisissez "Supprimer"
+ 4. Vous pouvez également supprimer l'extension Tampermonkey si elle ne vous est plus utile
