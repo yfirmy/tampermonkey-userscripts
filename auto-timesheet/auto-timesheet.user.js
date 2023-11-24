@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Timesheet Filler
 // @namespace    https://github.com/yfirmy/tampermonkey-userscripts
-// @version      1.3.2
+// @version      1.4
 // @description  Automatic Timesheet Filler
 // @author       Yohan FIRMY (yfirmy)
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
@@ -34,7 +34,7 @@ function() {
        fillField(doc, "Wednesday", "input", "TIME4$0", WORK_HOURS, '');
        fillField(doc, "Thursday",  "input", "TIME5$0", WORK_HOURS, '');
        fillField(doc, "Friday",    "input", "TIME6$0", WORK_HOURS, '');
-       fillField(doc, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "(Timesheet préremplie automatiquement - plus d'info: github.com/yfirmy/tampermonkey-userscripts)");
+       fillField(doc, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "(Timesheet préremplie automatiquement)");
     }
 
     function fillAdditionalInformations(doc) {
@@ -105,7 +105,8 @@ function() {
                                          "21/04/2025", "29/05/2025", "09/06/2025",
                                          "06/04/2026", "14/05/2026", "25/05/2026",
                                          "29/03/2027", "06/05/2027", "17/05/2027",
-                                         "17/04/2028", "25/05/2028", "05/06/2028"]
+                                         "17/04/2028", "25/05/2028", "05/06/2028",
+                                         "02/04/2029", "10/05/2029", "21/05/2029"]
         return perpetualFrenchPublicHolidays.includes(momentDate.format("DD/MM")) ||
                otherFrenchPublicHolidays.includes(momentDate.format("DD/MM/YYYY"));
     }
@@ -115,7 +116,8 @@ function() {
            let day = weekDayAsInt(weekday);
            let publicHolidayElement = doc.querySelector("input[id='POL_TIME"+day+"$30']");
            let publicHolidayDescrElement = doc.querySelector("span[id='POL_DESCR$30']");
-           if(publicHolidayDescrElement && publicHolidayDescrElement.innerHTML=="Jour férié") {
+           if(publicHolidayDescrElement && 
+              (publicHolidayDescrElement.innerHTML=="Jour férié" || publicHolidayDescrElement.innerHTML=="Public holiday")) {
                publicHolidayElement.value = workHours;
                publicHolidayElement.onchange();
            } else {
