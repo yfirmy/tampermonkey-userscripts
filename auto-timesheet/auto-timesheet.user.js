@@ -7,7 +7,7 @@
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js
 // @grant        none
-// @homepage     https://github.com/yfirmy/tampermonkey-userscripts
+// @homepage     https://github.com/yfirmy/tampermonkey-userscripts/tree/main/auto-timesheet
 // @downloadURL  https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js
 // @updateURL    https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js
 // ==/UserScript==
