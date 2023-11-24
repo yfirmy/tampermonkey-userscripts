@@ -7,7 +7,7 @@
     - cliquez sur [ce lien](https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js)
     - Un onglet Tampermonkey s'affiche
     - cliquez sur "Installer le script"
- 3. Personnalisez le script (allez dans l'extension Tampermonkey, and modifier "Auto Timesheet Filler" directement)
+ 3. Personnalisez le script (cliquez sur l'icône de l'extension Tampermonkey, and sélectionner "Auto Timesheet Filler" puis "Edition")
     -  Modifiez la valeur de `WORK_HOURS` si nécessaire
     -  Modifiez la valeur de `LUNCH_HOURS` si necessaire 
     -  Modifiez vos lieux de travail (dans les paragraphes "Working location") si nécessaire
