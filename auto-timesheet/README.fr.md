@@ -11,7 +11,7 @@
     -  Modifiez la valeur de `WORK_HOURS` si nécessaire
     -  Modifiez la valeur de `LUNCH_HOURS` si necessaire 
     -  Modifiez vos lieux de travail (dans les paragraphes "Working location") si nécessaire
- 4. Faites "Fichier > Enregistrer" dans l'insterface Tampermonkey, pour valider vos modifications
+ 4. Faites "Fichier > Enregistrer" dans l'interface Tampermonkey, pour valider vos modifications
 
 ## Comment utiliser le script
 Une fois le script installé et adapté (voir ci-dessus):
