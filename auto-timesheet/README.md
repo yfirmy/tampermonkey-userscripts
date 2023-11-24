@@ -7,6 +7,7 @@
     -  Modify your WORK_HOURS value if necessary
     -  Modify your LUNCH_HOURS value if necessary 
     -  Modify your work locations values if necessary
+ 4. Click on "File > Save" to validate your modifications
 
 ## How to use it
 
