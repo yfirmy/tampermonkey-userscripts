@@ -1,15 +1,15 @@
 // ==UserScript==
 // @name         Auto Timesheet Filler
 // @namespace    https://github.com/yfirmy/tampermonkey-userscripts
-// @version      1.3.1
+// @version      1.3.2
 // @description  Automatic Timesheet Filler
 // @author       Yohan FIRMY (yfirmy)
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js
 // @grant        none
 // @homepage     https://github.com/yfirmy/tampermonkey-userscripts
-// @downloadURL  https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet.user.js
-// @updateURL    https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet.user.js
+// @downloadURL  https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js
+// @updateURL    https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js
 // ==/UserScript==
 
 (
