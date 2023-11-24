@@ -1,6 +1,7 @@
 # Auto Timesheet script
 [![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/yfirmy/tampermonkey-userscripts/blob/master/auto-timesheet/README.md) [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/yfirmy/tampermonkey-userscripts/blob/master/auto-timesheet/README.fr.md) 
 ## How to install
+
  1. [Install the Tampermonkey](https://www.tampermonkey.net/) extension in your browser 
  2. To add the script:
     - Click on [this link](https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js)
@@ -20,3 +21,10 @@ Once installed in your Tampermonkey extension:
 3. It should be automatically filled by the script
 4. Click on the "Additional Informations" link (if any) to let the script fill this part too, click "OK" to validate
 5. Save or Submit your timesheet
+
+## How to uninstall this script
+
+1. Go to the Tampermonkey extension configuration page
+2. Select the "Auto Timesheet Filler" script
+3. In the actions column, click on the "Remove" button
+4. You may also consider removing the Tampermonkey extension from your browser if not useful anymore
