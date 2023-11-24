@@ -15,8 +15,8 @@
 
 ## Comment utiliser le script
 Une fois le script installé et adapté (voir ci-dessus):
- 1. Allez dans l'interface de création de Timesheet
+ 1. Allez dans l'interface habituelle de création de Timesheet
  2. Créez une Timesheet
  3. Celle-ci sera automatiquement pré-remplie par le script
- 4. Cliquer sur le lien "Informations additionnelles" pour laisser le script remplir cette partie également, et cliquer sur OK
- 5. Sauvegardez ou Soumettez votre Timesheet
+ 4. Cliquez sur le lien "Informations additionnelles" pour laisser le script remplir cette partie également, et cliquer sur OK
+ 5. Sauvegardez (ou Soumettez) votre Timesheet
