@@ -1,6 +1,5 @@
 # Auto Timesheet script
-[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/yfirmy/tampermonkey-userscripts/blob/master/auto-timesheet/README.md)
-
+[![en](https://img.shields.io/badge/lang-en-red.svg)](https://github.com/yfirmy/tampermonkey-userscripts/blob/master/auto-timesheet/README.md) [![fr](https://img.shields.io/badge/lang-fr-blue.svg)](https://github.com/yfirmy/tampermonkey-userscripts/blob/master/auto-timesheet/README.fr.md) 
 ## How to install
  1. [Install the Tampermonkey](https://www.tampermonkey.net/) extension in your browser 
  2. Click on [this link](https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js) and click on "Install"
