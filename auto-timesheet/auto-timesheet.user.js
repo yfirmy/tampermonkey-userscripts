@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Auto Timesheet Filler
 // @namespace    https://github.com/yfirmy/tampermonkey-userscripts
-// @version      1.4
+// @version      1.4.1
 // @description  Automatic Timesheet Filler
-// @author       Yohan FIRMY (yfirmy)
+// @author       Yohan FIRMY
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js
 // @grant        none
@@ -194,7 +194,7 @@ function() {
               fillAdditionalInformations(innerDocument);
               let saveButton = innerDocument.getElementById("#ICSave");
               saveButton.addEventListener('click', function() {
-                  observer.disconnect();
+                  //observer.disconnect();
               });
           }
        }
