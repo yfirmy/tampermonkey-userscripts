@@ -8,6 +8,7 @@
     - a Tampermonky tab is displayed
     - Click on "Install this script"
  4. Modify the script (click on the Tampermonkey extension icon, and choose "Auto Timesheet Filler" and then "Edition")
+    -  Search the phrase "Customize here after" in the script, and
     -  Modify your `WORK_HOURS` value if necessary
     -  Modify your `LUNCH_HOURS` value if necessary 
     -  Modify your work locations values if necessary
