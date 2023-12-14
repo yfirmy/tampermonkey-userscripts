@@ -8,10 +8,11 @@
     - Un onglet Tampermonkey s'affiche
     - cliquez sur "**Installer**"
  3. Personnalisez le script (cliquez sur l'icône de l'extension Tampermonkey, and sélectionner "Auto Timesheet Filler" puis "Edition")
+    -  Cherchez la phrase `Customize here after` dans le script, et
     -  Modifiez la valeur de `WORK_HOURS` si nécessaire
     -  Modifiez la valeur de `LUNCH_HOURS` si necessaire 
     -  Modifiez vos lieux de travail (dans les paragraphes "Working location") si nécessaire
- 4. Faites "Fichier > Enregistrer" dans l'interface Tampermonkey, pour valider vos modifications
+ 5. Faites "Fichier > Enregistrer" dans l'interface Tampermonkey, pour valider vos modifications
 
 ## Comment utiliser le script
 Une fois le script installé et adapté (voir ci-dessus):
