@@ -38,7 +38,7 @@ function() {
        fillField(doc, "Wednesday", "input", "TIME4$0", WORK_HOURS, '');
        fillField(doc, "Thursday",  "input", "TIME5$0", WORK_HOURS, '');
        fillField(doc, "Friday",    "input", "TIME6$0", WORK_HOURS, '');
-       fillField(doc, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "(Timesheet préremplie automatiquement - plus d'info: github.com/yfirmy/tampermonkey-userscripts)");
+       //fillField(doc, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "(Timesheet préremplie automatiquement - plus d'info: github.com/yfirmy/tampermonkey-userscripts)");
     }
 
     function fillAdditionalInformations(doc) {
