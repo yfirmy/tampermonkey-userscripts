@@ -1,27 +1,31 @@
 // ==UserScript==
 // @name         Auto Timesheet Filler
 // @namespace    https://github.com/yfirmy/tampermonkey-userscripts
-// @version      1.4.1
+// @version      1.4
 // @description  Automatic Timesheet Filler
 // @author       Yohan FIRMY
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
+// @match        https://*/psc/ihprda/EMPLOYEE/EMPL/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
 // @require      https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.0/moment.min.js
 // @grant        none
-// @homepage     https://github.com/yfirmy/tampermonkey-userscripts/tree/main/auto-timesheet
-// @downloadURL  https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js
-// @updateURL    https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet/auto-timesheet.user.js
+// @homepage     https://github.com/yfirmy/tampermonkey-userscripts
+// @downloadURL  https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet.user.js
+// @updateURL    https://raw.github.com/yfirmy/tampermonkey-userscripts/main/auto-timesheet.user.js
 // ==/UserScript==
 
 (
 function() {
     'use strict';
 
+    // Customize here after:
     const WORK_HOURS = '7,70';
     const LUNCH_HOURS = '1,00';
 
+    // Constants
     const REMOTE_WORKING = 'T';
     const CLIENT_SITE = 'C';
     const CGI_SITE = 'O';
+    const NOT_APPLICABLE = 'NA';
 
     var presenceByDay;
     var momentByDay;
@@ -34,7 +38,7 @@ function() {
        fillField(doc, "Wednesday", "input", "TIME4$0", WORK_HOURS, '');
        fillField(doc, "Thursday",  "input", "TIME5$0", WORK_HOURS, '');
        fillField(doc, "Friday",    "input", "TIME6$0", WORK_HOURS, '');
-       fillField(doc, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "(Timesheet préremplie automatiquement)");
+       fillField(doc, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "(Timesheet préremplie automatiquement - plus d'info: github.com/yfirmy/tampermonkey-userscripts)");
     }
 
     function fillAdditionalInformations(doc) {
@@ -68,6 +72,8 @@ function() {
        fillField(doc, "Friday",    "input", "UC_TIME_LIN_WRK_UC_DAILYREST16$0", LUNCH_HOURS, '');
 
        // Working location on mornings (P,T,C,O,E,VCGI,VCLI or NA)
+       // Customize here after (replace the REMOTE_WORKING/CLIENT_SITE by your actual working place
+       // (possible values : REMOTE_WORKING, CLIENT_SITE, CGI_SITE or NOT_APPLICABLE)
        fillField(doc, "Monday",    "select", "UC_LOCATION_A2$0", REMOTE_WORKING, 'NA');
        fillField(doc, "Tuesday",   "select", "UC_LOCATION_A3$0", REMOTE_WORKING, 'NA');
        fillField(doc, "Wednesday", "select", "UC_LOCATION_A4$0", CLIENT_SITE,    'NA');
@@ -75,6 +81,8 @@ function() {
        fillField(doc, "Friday",    "select", "UC_LOCATION_A6$0", REMOTE_WORKING, 'NA');
 
        // Working location on afternoons (P,T,C,O,E,VCGI,VCLI or NA)
+       // Customize here after (replace the REMOTE_WORKING/CLIENT_SITE by your actual working place
+       // (possible values : REMOTE_WORKING, CLIENT_SITE, CGI_SITE or NOT_APPLICABLE)
        fillField(doc, "Monday",    "select", "UC_LOCATION_A2$1", REMOTE_WORKING, 'NA');
        fillField(doc, "Tuesday",   "select", "UC_LOCATION_A3$1", REMOTE_WORKING, 'NA');
        fillField(doc, "Wednesday", "select", "UC_LOCATION_A4$1", CLIENT_SITE,    'NA');
@@ -105,8 +113,7 @@ function() {
                                          "21/04/2025", "29/05/2025", "09/06/2025",
                                          "06/04/2026", "14/05/2026", "25/05/2026",
                                          "29/03/2027", "06/05/2027", "17/05/2027",
-                                         "17/04/2028", "25/05/2028", "05/06/2028",
-                                         "02/04/2029", "10/05/2029", "21/05/2029"]
+                                         "17/04/2028", "25/05/2028", "05/06/2028"]
         return perpetualFrenchPublicHolidays.includes(momentDate.format("DD/MM")) ||
                otherFrenchPublicHolidays.includes(momentDate.format("DD/MM/YYYY"));
     }
@@ -116,8 +123,7 @@ function() {
            let day = weekDayAsInt(weekday);
            let publicHolidayElement = doc.querySelector("input[id='POL_TIME"+day+"$30']");
            let publicHolidayDescrElement = doc.querySelector("span[id='POL_DESCR$30']");
-           if(publicHolidayDescrElement && 
-              (publicHolidayDescrElement.innerHTML=="Jour férié" || publicHolidayDescrElement.innerHTML=="Public holiday")) {
+           if(publicHolidayDescrElement && publicHolidayDescrElement.innerHTML=="Jour férié") {
                publicHolidayElement.value = workHours;
                publicHolidayElement.onchange();
            } else {
