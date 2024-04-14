@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Timesheet Filler
 // @namespace    https://github.com/yfirmy/tampermonkey-userscripts
-// @version      1.4.2
+// @version      1.5
 // @description  Automatic Timesheet Filler
 // @author       Yohan FIRMY
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
@@ -38,7 +38,7 @@ function() {
        fillField(doc, "Wednesday", "input", "TIME4$0", WORK_HOURS, '');
        fillField(doc, "Thursday",  "input", "TIME5$0", WORK_HOURS, '');
        fillField(doc, "Friday",    "input", "TIME6$0", WORK_HOURS, '');
-       //fillField(doc, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "(Timesheet préremplie automatiquement)");
+       fillField(doc, "Comments",  "textarea", "EX_TIME_HDR_COMMENTS", "", "");
     }
 
     function fillAdditionalInformations(doc) {
@@ -94,7 +94,11 @@ function() {
        let element = doc.querySelector(fieldType + "[id='" + fieldId + "']");
        if(element) {
           if(presenceByDay && presenceByDay.get(weekday)) {
-             element.value = fieldValueIfPresent;
+              if(fieldType == "input" && fieldId.startsWith("TIME")) {
+                  element.value = presenceByDay.get(weekday).toString().replace(".", ",");
+              } else {
+                  element.value = fieldValueIfPresent;
+              }
           } else {
              element.value = fieldValueIfAbsent;
           }
@@ -134,15 +138,15 @@ function() {
         }
     }
 
-    function checkPresenceOnDay(doc, weekday) {
-        let result = true;
+    function getWorkingTimeOnDay(doc, weekday) {
+        let result = parseFloat(WORK_HOURS.replace(",", "."));
         let day = weekDayAsInt(weekday);
         let line = 0;
         let absenceElementOnSameDay;
         do {
             absenceElementOnSameDay = doc.querySelector("input[id='POL_TIME"+day+"$"+line+"']");
             if(absenceElementOnSameDay && absenceElementOnSameDay.value && absenceElementOnSameDay.value!='') {
-              result = false;
+              result -= parseFloat(absenceElementOnSameDay.value.replace(",", "."));
               break;
             }
             line = line + 1;
@@ -152,11 +156,11 @@ function() {
 
     function checkPresence(doc) {
         let result = new Map();
-        result.set("Monday",    checkPresenceOnDay(doc, "Monday"));
-        result.set("Tuesday",   checkPresenceOnDay(doc, "Tuesday"));
-        result.set("Wednesday", checkPresenceOnDay(doc, "Wednesday"));
-        result.set("Thursday",  checkPresenceOnDay(doc, "Thursday"));
-        result.set("Friday",    checkPresenceOnDay(doc, "Friday"));
+        result.set("Monday",    getWorkingTimeOnDay(doc, "Monday"));
+        result.set("Tuesday",   getWorkingTimeOnDay(doc, "Tuesday"));
+        result.set("Wednesday", getWorkingTimeOnDay(doc, "Wednesday"));
+        result.set("Thursday",  getWorkingTimeOnDay(doc, "Thursday"));
+        result.set("Friday",    getWorkingTimeOnDay(doc, "Friday"));
         return result;
     }
 
