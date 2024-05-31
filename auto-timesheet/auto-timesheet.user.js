@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Timesheet Filler
 // @namespace    https://github.com/yfirmy/tampermonkey-userscripts
-// @version      1.5
+// @version      1.5.0.1
 // @description  Automatic Timesheet Filler
 // @author       Yohan FIRMY
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
@@ -75,8 +75,8 @@ function() {
        // Customize here after (replace the REMOTE_WORKING/CLIENT_SITE by your actual working place
        // (possible values : REMOTE_WORKING, CLIENT_SITE, CGI_SITE or NOT_APPLICABLE)
        fillField(doc, "Monday",    "select", "UC_LOCATION_A2$0", REMOTE_WORKING, 'NA');
-       fillField(doc, "Tuesday",   "select", "UC_LOCATION_A3$0", REMOTE_WORKING, 'NA');
-       fillField(doc, "Wednesday", "select", "UC_LOCATION_A4$0", CLIENT_SITE,    'NA');
+       fillField(doc, "Tuesday",   "select", "UC_LOCATION_A3$0", CLIENT_SITE,    'NA');
+       fillField(doc, "Wednesday", "select", "UC_LOCATION_A4$0", REMOTE_WORKING, 'NA');
        fillField(doc, "Thursday",  "select", "UC_LOCATION_A5$0", CLIENT_SITE,    'NA');
        fillField(doc, "Friday",    "select", "UC_LOCATION_A6$0", REMOTE_WORKING, 'NA');
 
@@ -84,8 +84,8 @@ function() {
        // Customize here after (replace the REMOTE_WORKING/CLIENT_SITE by your actual working place
        // (possible values : REMOTE_WORKING, CLIENT_SITE, CGI_SITE or NOT_APPLICABLE)
        fillField(doc, "Monday",    "select", "UC_LOCATION_A2$1", REMOTE_WORKING, 'NA');
-       fillField(doc, "Tuesday",   "select", "UC_LOCATION_A3$1", REMOTE_WORKING, 'NA');
-       fillField(doc, "Wednesday", "select", "UC_LOCATION_A4$1", CLIENT_SITE,    'NA');
+       fillField(doc, "Tuesday",   "select", "UC_LOCATION_A3$1", CLIENT_SITE,    'NA');
+       fillField(doc, "Wednesday", "select", "UC_LOCATION_A4$1", REMOTE_WORKING, 'NA');
        fillField(doc, "Thursday",  "select", "UC_LOCATION_A5$1", CLIENT_SITE,    'NA');
        fillField(doc, "Friday",    "select", "UC_LOCATION_A6$1", REMOTE_WORKING, 'NA');
     }
