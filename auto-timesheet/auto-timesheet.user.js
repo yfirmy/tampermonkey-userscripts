@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto Timesheet Filler
 // @namespace    https://github.com/yfirmy/tampermonkey-userscripts
-// @version      1.5.0.1
+// @version      1.5.1
 // @description  Automatic Timesheet Filler
 // @author       Yohan FIRMY
 // @match        https://*/psc/fsprda/EMPLOYEE/ERP/c/NUI_FRAMEWORK.PT_AGSTARTPAGE_NUI.GBL*
