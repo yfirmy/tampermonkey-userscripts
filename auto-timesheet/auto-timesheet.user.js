@@ -123,13 +123,30 @@ function() {
                otherFrenchPublicHolidays.includes(momentDate.format("DD/MM/YYYY"));
     }
 
+    function isPublicHolidayLabel(label) {
+        return label==="Jour férié" || label==="Public holiday";
+    }
+
+    function searchPublicHolidayLine(doc) {
+        let line = -1;
+        let isFound = false;
+        let publicHolidayDescrElement;
+        do {
+            line = line + 1;
+            publicHolidayDescrElement = doc.querySelector("span[id='POL_DESCR$"+line+"']");
+            isFound = publicHolidayDescrElement && isPublicHolidayLabel(publicHolidayDescrElement.innerHTML);
+        } while(!isFound && line<70)
+
+        return {line: line, found: isFound};
+    }
+
     function fillPublicHoliday(doc, weekday, workHours) {
         if(isPublicHoliday(momentByDay.get(weekday))) {
            let day = weekDayAsInt(weekday);
-           let publicHolidayElement = doc.querySelector("input[id='POL_TIME"+day+"$30']");
-           let publicHolidayDescrElement = doc.querySelector("span[id='POL_DESCR$30']");
-           if(publicHolidayDescrElement &&
-              (publicHolidayDescrElement.innerHTML=="Jour férié" || publicHolidayDescrElement.innerHTML=="Public holiday")) {
+           let lineSearch = searchPublicHolidayLine(doc);
+
+           if(lineSearch.found) {
+               let publicHolidayElement = doc.querySelector("input[id='POL_TIME"+day+"$"+lineSearch.line+"']");
                publicHolidayElement.value = workHours;
                publicHolidayElement.onchange();
            } else {
@@ -145,7 +162,7 @@ function() {
         let absenceElementOnSameDay;
         do {
             absenceElementOnSameDay = doc.querySelector("input[id='POL_TIME"+day+"$"+line+"']");
-            if(absenceElementOnSameDay && absenceElementOnSameDay.value && absenceElementOnSameDay.value!='') {
+            if(absenceElementOnSameDay && absenceElementOnSameDay.value && absenceElementOnSameDay.value!=='') {
               result -= parseFloat(absenceElementOnSameDay.value.replace(",", "."));
               break;
             }
